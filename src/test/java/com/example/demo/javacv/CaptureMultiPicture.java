@@ -36,7 +36,7 @@ public class CaptureMultiPicture {
             for (File child : children) {
                 String suffix = ".mp4";
                 if (child.getName().endsWith(suffix)) {
-                    String directoryPath = child.getAbsolutePath().substring(0, child.getAbsolutePath().lastIndexOf(suffix));
+                    String directoryPath = child.getAbsolutePath().substring(0, child.getAbsolutePath().lastIndexOf('.'));
                     File directory = new File(directoryPath);
                     if (!directory.exists()) {
                         directory.mkdir();
@@ -64,6 +64,8 @@ public class CaptureMultiPicture {
 
         int ffLength = ff.getLengthInFrames();
         List<Integer> randomGrab = getFramePositionList(ffLength, pictureCount);
+
+
         int maxRandomGrab = randomGrab.get(randomGrab.size() - 1);
         Frame f;
         int i = 0;
@@ -102,10 +104,10 @@ public class CaptureMultiPicture {
         int step = baseNum / length;
 
         int i = step;
-        while (i < baseNum) {
+        do {
             list.add(i);
             i += step;
-        }
+        }while (i < baseNum);
         return list;
     }
 }
